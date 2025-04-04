@@ -1,0 +1,58 @@
+[
+  {
+    "title": "computadoras",
+    "description": "Descripción del producto",
+    "code": "P001",
+    "price": 100,
+    "status": true,
+    "stock": 50,
+    "category": "Categoría 1",
+    "thumbnails": [
+      "img1.jpg",
+      "img2.jpg"
+    ],
+    "id": "1"
+  },
+  {
+    "title": "impresoras",
+    "description": "Descripción del producto",
+    "code": "P002",
+    "price": 200,
+    "status": true,
+    "stock": 50,
+    "category": "Categoría 1",
+    "thumbnails": [
+      "img1.jpg",
+      "img2.jpg"
+    ],
+    "id": "2"
+  },
+  {
+    "title": "macbook",
+    "description": "Descripción del producto",
+    "code": "P002",
+    "price": 200,
+    "status": true,
+    "stock": 50,
+    "category": "Categoría 1",
+    "thumbnails": [
+      "img1.jpg",
+      "img2.jpg"
+    ],
+    "id": "3"
+  },
+  {
+    "title": "iphone",
+    "description": "Descripción del producto",
+    "code": "P002",
+    "price": 3000,
+    "status": true,
+    "stock": 50,
+    "category": "Categoría 1",
+    "thumbnails": [
+      "img1.jpg",
+      "img2.jpg"
+    ],
+    "id": "4"
+  }
+]
