@@ -1,13 +1,11 @@
 {
-  "name": "preentrega-1",
+  "name": "backend-2025",
   "version": "1.0.0",
   "main": "servidor.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node servidor.js"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "express": "^5.1.0"
   }

@@ -54,5 +54,19 @@
       "img2.jpg"
     ],
     "id": "4"
+  },
+  {
+    "id": "5",
+    "title": "pruebafn",
+    "description": "Descripción del producto",
+    "code": "P001",
+    "price": 100,
+    "status": true,
+    "stock": 50,
+    "category": "Categoría 1",
+    "thumbnails": [
+      "img1.jpg",
+      "img2.jpg"
+    ]
   }
 ]
