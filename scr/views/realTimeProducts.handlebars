@@ -1,0 +1,23 @@
+<!-- filepath: /Users/maxim2/Documents/backend1/practico 2/preactico 2 con websocket/backend1/practico 2/scr/views/realTimeProducts.handlebars -->
+<h1>Agregar Producto</h1>
+<form id="productForm">
+    <input type="text" name="title" placeholder="Título" required>
+    <input type="text" name="description" placeholder="Descripción" required>
+    <input type="text" name="code" placeholder="Código" required>
+    <input type="number" name="price" placeholder="Precio" required>
+    <input type="number" name="stock" placeholder="Stock" required>
+    <button type="submit">Agregar Producto</button>
+</form>
+
+<h2>Lista de Productos</h2>
+<ul id="productList">
+    {{#each products}}
+        <li id="product-{{this.id}}">
+            {{this.title}} - ${{this.price}} - Stock: {{this.stock}}
+            <button onclick="deleteProduct('{{this.id}}')">Eliminar</button>
+        </li>
+    {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/client.js"></script>

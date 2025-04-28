@@ -4,9 +4,11 @@
   "main": "servidor.js",
   "type": "module",
   "scripts": {
-    "start": "node servidor.js"
+    "start": "node scr/app.js"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "express-handlebars": "^6.0.7",
+    "socket.io": "^4.8.1"
   }
 }

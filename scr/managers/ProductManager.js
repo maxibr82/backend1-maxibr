@@ -19,60 +19,83 @@ class ProductManager {
         }
     }
 
-    async getProductById(id) {
-        try {
-            const products = await this.getProducts();
-            return products.find(product => product.id === id.toString());
-        } catch (err) {
-            console.error('Error al buscar el producto por ID:', err);
-            return null;
-        }
-    }
-
     async addProduct(product) {
         try {
             const products = await this.getProducts();
-            const newProduct = {
-                id: (products.length + 1).toString(),
-                ...product
-            };
+
+            // Validar que el código del producto sea único
+            if (products.some(p => p.code === product.code)) {
+                throw new Error(`El código de producto "${product.code}" ya existe.`);
+            }
+
+            // Generar un nuevo ID único
+            const newId = products.length > 0 ? (parseInt(products[products.length - 1].id) + 1).toString() : '1';
+            const newProduct = { id: newId, ...product };
+
+            // Agregar el nuevo producto al array
             products.push(newProduct);
+
+            // Guardar en el archivo JSON
             await fs.writeFile(this.filePath, JSON.stringify(products, null, 2));
             return newProduct;
         } catch (err) {
-            console.error('Error al agregar el producto:', err);
+            console.error('Error al agregar el producto:', err.message);
             throw new Error('No se pudo agregar el producto');
-        }
-    }
-
-    async updateProduct(id, updatedFields) {
-        try {
-            const products = await this.getProducts();
-            const index = products.findIndex(product => product.id === id.toString());
-            if (index === -1) return null;
-
-            products[index] = { ...products[index], ...updatedFields };
-
-            await fs.writeFile(this.filePath, JSON.stringify(products, null, 2));
-            return products[index];
-        } catch (err) {
-            console.error('Error al actualizar el producto:', err);
-            throw new Error('No se pudo actualizar el producto');
         }
     }
 
     async deleteProduct(id) {
         try {
             const products = await this.getProducts();
-            const index = products.findIndex(product => product.id === id.toString());
-            if (index === -1) return null;
 
-            const deletedProduct = products.splice(index, 1)[0];
+            // Convertir el ID a cadena para asegurar la comparación correcta
+            const productIndex = products.findIndex((product) => product.id === id.toString());
+            if (productIndex === -1) {
+                throw new Error('Producto no encontrado');
+            }
+
+            // Eliminar el producto del array
+            const deletedProduct = products.splice(productIndex, 1)[0];
+
+            // Guardar los cambios en el archivo JSON
             await fs.writeFile(this.filePath, JSON.stringify(products, null, 2));
+
             return deletedProduct;
         } catch (err) {
-            console.error('Error al eliminar el producto:', err);
+            console.error('Error al eliminar el producto:', err.message);
             throw new Error('No se pudo eliminar el producto');
+        }
+    }
+
+    async updateProduct(id, updatedFields) {
+        try {
+            const products = await this.getProducts();
+
+            // Convertir el ID a cadena para asegurar la comparación correcta
+            const productIndex = products.findIndex((product) => product.id === id.toString());
+            if (productIndex === -1) {
+                throw new Error('Producto no encontrado');
+            }
+
+            // Validar que los campos actualizados sean válidos
+            const validFields = ['title', 'description', 'code', 'price', 'status', 'stock', 'category', 'thumbnails'];
+            Object.keys(updatedFields).forEach((key) => {
+                if (!validFields.includes(key)) {
+                    throw new Error(`El campo "${key}" no es válido`);
+                }
+            });
+
+            // Actualizar las propiedades del producto
+            const updatedProduct = { ...products[productIndex], ...updatedFields };
+            products[productIndex] = updatedProduct;
+
+            // Guardar los cambios en el archivo JSON
+            await fs.writeFile(this.filePath, JSON.stringify(products, null, 2));
+
+            return updatedProduct;
+        } catch (err) {
+            console.error('Error al actualizar el producto:', err.message);
+            throw new Error('No se pudo actualizar el producto');
         }
     }
 }

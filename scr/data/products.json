@@ -30,7 +30,7 @@
   {
     "title": "macbook",
     "description": "Descripción del producto",
-    "code": "P002",
+    "code": "P003",
     "price": 200,
     "status": true,
     "stock": 50,
@@ -44,7 +44,7 @@
   {
     "title": "iphone",
     "description": "Descripción del producto",
-    "code": "P002",
+    "code": "P004",
     "price": 3000,
     "status": true,
     "stock": 50,
@@ -56,10 +56,48 @@
     "id": "4"
   },
   {
-    "id": "5",
     "title": "pruebafn",
     "description": "Descripción del producto",
-    "code": "P001",
+    "code": "P005",
+    "price": 100,
+    "status": true,
+    "stock": 50,
+    "category": "Categoría 1",
+    "thumbnails": [
+      "img1.jpg",
+      "img2.jpg"
+    ],
+    "id": "5"
+  },
+  {
+    "id": "6",
+    "title": "casa",
+    "description": "casa",
+    "code": "p008",
+    "price": 1000,
+    "stock": 23
+  },
+  {
+    "id": "7",
+    "title": "yo..",
+    "description": "yoo",
+    "code": "p0019",
+    "price": 1233,
+    "stock": 12
+  },
+  {
+    "id": "8",
+    "title": "prueba777",
+    "description": "prueba77",
+    "code": "p00199",
+    "price": 9999,
+    "stock": 23
+  },
+  {
+    "id": "9",
+    "title": "dedeposman",
+    "description": "desdeposman",
+    "code": "P0099",
     "price": 100,
     "status": true,
     "stock": 50,
@@ -68,5 +106,13 @@
       "img1.jpg",
       "img2.jpg"
     ]
+  },
+  {
+    "id": "10",
+    "title": "desdeweb",
+    "description": "desdeweb",
+    "code": "ph555",
+    "price": 1100,
+    "stock": 555
   }
 ]
