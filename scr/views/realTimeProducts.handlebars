@@ -1,23 +1,50 @@
-<!-- filepath: /Users/maxim2/Documents/backend1/practico 2/preactico 2 con websocket/backend1/practico 2/scr/views/realTimeProducts.handlebars -->
 <h1>Agregar Producto</h1>
+
+<!-- Formulario para ingresar el ID del carrito con ícono y texto -->
+<form id="view-cart-form" style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
+    <label for="cart-id-input" style="font-size: 18px; display: flex; align-items: center;">
+        🛒 Ver Carrito:
+    </label>
+    <input type="text" id="cart-id-input" placeholder="Ingrese el ID del carrito" required style="padding: 5px;">
+    <button type="submit" style="padding: 5px 10px;">Ir</button>
+</form>
+
+<!-- Enlace para ver todos los carritos -->
+<a href="/carts" id="all-carts-link" style="display: block; margin-top: 10px; font-size: 18px;">
+    📋 Ver Todos los Carritos
+</a>
+
 <form id="productForm">
     <input type="text" name="title" placeholder="Título" required>
     <input type="text" name="description" placeholder="Descripción" required>
     <input type="text" name="code" placeholder="Código" required>
     <input type="number" name="price" placeholder="Precio" required>
     <input type="number" name="stock" placeholder="Stock" required>
+    <input type="text" name="category" placeholder="Categoría" required>
     <button type="submit">Agregar Producto</button>
 </form>
 
 <h2>Lista de Productos</h2>
 <ul id="productList">
     {{#each products}}
-        <li id="product-{{this.id}}">
+        <li id="product-{{this._id}}">
             {{this.title}} - ${{this.price}} - Stock: {{this.stock}}
-            <button onclick="deleteProduct('{{this.id}}')">Eliminar</button>
+            <button onclick="deleteProduct('{{this._id}}')">Eliminar</button>
         </li>
     {{/each}}
 </ul>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/client.js"></script>
+<script>
+    // Manejar el formulario para redirigir al carrito específico
+    document.getElementById('view-cart-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const cartId = document.getElementById('cart-id-input').value.trim();
+        if (cartId) {
+            window.location.href = `/cart/${cartId}`;
+        } else {
+            alert('Por favor, ingrese un ID de carrito válido.');
+        }
+    });
+</script>

@@ -1,0 +1,45 @@
+<h1>Carrito de Compras</h1>
+
+<ul id="cart-products">
+    {{#each cart.products}}
+        <li>
+            <strong>{{this.product.title}}</strong> - Cantidad: {{this.quantity}}
+            <button onclick="removeProduct('{{cart._id}}', '{{this.product._id}}')">Eliminar</button>
+        </li>
+    {{else}}
+        <li>No hay productos en el carrito</li>
+    {{/each}}
+</ul>
+
+<h2>Acciones</h2>
+<form id="clear-cart-form">
+    <button type="button" id="clear-cart-button">Vaciar Carrito</button>
+</form>
+
+<script src="/js/cart.js"></script>
+<script>
+    // Vaciar el carrito
+    document.getElementById('clear-cart-button').addEventListener('click', async () => {
+        const cartId = '{{cart._id}}';
+        try {
+            const response = await fetch(`/api/carts/${cartId}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('Error al vaciar el carrito');
+            alert('Carrito vaciado con éxito');
+            location.reload();
+        } catch (error) {
+            alert('No se pudo vaciar el carrito');
+        }
+    });
+
+    // Eliminar un producto del carrito
+    async function removeProduct(cartId, productId) {
+        try {
+            const response = await fetch(`/api/carts/${cartId}/products/${productId}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('Error al eliminar el producto');
+            alert('Producto eliminado con éxito');
+            location.reload();
+        } catch (error) {
+            alert('No se pudo eliminar el producto');
+        }
+    }
+</script>

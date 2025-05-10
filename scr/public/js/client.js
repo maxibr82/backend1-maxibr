@@ -5,20 +5,17 @@ document.getElementById('productForm').addEventListener('submit', async (event) 
     event.preventDefault();
 
     // Capturar los datos del formulario
-    const title = document.querySelector('input[name="title"]').value;
-    const description = document.querySelector('input[name="description"]').value;
-    const code = document.querySelector('input[name="code"]').value;
-    const price = parseFloat(document.querySelector('input[name="price"]').value);
-    const stock = parseInt(document.querySelector('input[name="stock"]').value);
+    const formData = new FormData(event.target);
+    const product = Object.fromEntries(formData.entries());
 
     // Validar que los campos no estén vacíos
-    if (!title || !description || !code || isNaN(price) || isNaN(stock)) {
+    if (!product.title || !product.description || !product.code || !product.price || !product.stock || !product.category) {
         alert('Por favor, completa todos los campos correctamente.');
         return;
     }
 
     // Enviar los datos al servidor mediante WebSocket
-    socket.emit('addProduct', { title, description, code, price, stock });
+    socket.emit('addProduct', product);
 
     // Limpiar el formulario
     event.target.reset();
@@ -28,10 +25,10 @@ document.getElementById('productForm').addEventListener('submit', async (event) 
 socket.on('productAdded', (newProduct) => {
     const productList = document.getElementById('productList');
     const li = document.createElement('li');
-    li.id = `product-${newProduct.id}`;
+    li.id = `product-${newProduct._id}`;
     li.innerHTML = `
         ${newProduct.title} - $${newProduct.price} - Stock: ${newProduct.stock}
-        <button onclick="deleteProduct('${newProduct.id}')">Eliminar</button>
+        <button onclick="deleteProduct('${newProduct._id}')">Eliminar</button>
     `;
     productList.appendChild(li);
 });
